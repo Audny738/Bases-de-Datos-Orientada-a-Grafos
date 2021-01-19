@@ -1,1 +1,1 @@
-# Bases-de-Datos-Orientada-a-Grafos
+# Bases de Datos Orientada a Grafos
