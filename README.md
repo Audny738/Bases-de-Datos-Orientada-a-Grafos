@@ -5,7 +5,7 @@ Aquí aprenderás los principios basicos de las bases de datos orientadas a Graf
 Un grafo es un tipo de estuctura de datos que consiste en un conjunto de nodos(vértices) conectados mediante relaciones(aristas o arcos).  
 En cuanto a las Bases de Datos orientadas a Grafos se basan en éstas representaciones en donde cada nodo corresponde a una identitad que contiene ciertas propiedades y la forma en la que se conectan entre ellas, de tal forma que pertime establecer una cantidad inmensa de diferentes tipos de relaciones.
 
-![](C:\Users\Audny Correa\Downloads\grafo2.png)
+
 
 **Algunas de las Bases de Datos Orientadas a Grafos más conocidas**
 - Neo4j
@@ -18,43 +18,50 @@ En cuanto a las Bases de Datos orientadas a Grafos se basan en éstas representa
 Neo4j utiliza el lenguaje Cypher, un lenguaje muy sencillo de entender. Este se basa en las etiquetas, las etiquetas podrían ser relacionadas como a las cabeceras de las tradicionales tablas en una base de Datos como MySql.
 La ventaja que tiene el lenguaje Cypher es que no necesitamos declarar tantos ` JOIN` para establecer relaciones complejas.
 
-Aquí vemos como se codificaría con Cypher:
-
-![](C:\Users\Audny Correa\Documents\Cypher.jpg)
-
-Y aquí podemos ver como se haría con SQL:
-
-![](C:\Users\Audny Correa\Documents\SQL.jpg)
-
 Comienza con Neo4j [aquí](https://neo4j.com/)
 
 ### Comandos Básicos con Cypher
 Estos son algunos de los moldes para las operaciones básicas de un CRUD
+
 - CREAR
     1. Crear nodos
+
         ` CREATE (Miriam:Person { name: "Miriam"}), (Rosa:Person { name: "Rosa"}) `
     2. Crear relaciones
+
         ` MATCH (Miriam:Person { name: "Miriam"}), (Rosa:Person { name: "Rosa"}) CREATE (Miriam)-[:FRIENDS_WITH]->(Rosa) `
 
 - ELIMINAR
     1. Eliminar nodo
+
         ` MATCH (Miriam:Person {name: "Miriam"}) DELETE Miriam`
+
     ***Nota*** *:Solo se puede eliminar un nodo de esta forma cuando no tiene una relación que lo conecte a otro nodo; dado este caso se tendrá que eliminar la relación que los une para depués eliminar los nodos.*
+
     2. Eliminar relación
+
         ` MATCH (n { name: "Miriam"})-[r:FRIENDS_WITH]->(p { name: "Rosa"}) DELETE r `
+
     3. Eliminar todo el grafo
+
         ` MATCH (n) OPTIONAL MATCH (n)-[r]-() DELETE n, r `
 
 - BÚSQUEDA
     1. Por relaciones y propiedades
+
         ` MATCH (n:Person)-[k:KNOWS]->(f) WHERE k.since < 2000 RETURN f.name, f.age, f.email `
+
         ` MATCH (n:Person) WHERE (n)-[:KNOWS]-({ name: 'Timothy' }) RETURN n.name, n.age `
 
 - ACTUALIZAR
     1. Añadir propiedad
+
         ` MATCH (n { name: “Andy” }) SET n.surname = “Taylor” RETURN n.name, n.surname `
+
     2. Eliminar propiedad
+
         `MATCH (a { name: "Andy" }) REMOVE a.age RETURN a.name, a.age`
+
         ` MATCH (a { name: "Andy" }) SET a = { } RETURN a.name, a.age`
 
 
